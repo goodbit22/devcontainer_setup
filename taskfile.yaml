@@ -1,0 +1,11 @@
+version: "3"
+
+tasks:
+
+  build:
+    desc: 
+    cmds:
+
+  run: 
+    desc: 'Run a command inside devcontainer (use: task run -- <command>)'
+    cmds: 

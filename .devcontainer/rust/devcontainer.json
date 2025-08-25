@@ -1,0 +1,39 @@
+{
+    "name": "Rust Development Environment",
+    "image": "mcr.microsoft.com/devcontainers/rust:latest",
+    // "build": {
+    //     "dockerfile": "Dockerfile",
+    //     "context": "..",
+    //     "args": {
+    //         "VARIANT": ""
+    //     }
+    // }
+    "customizations": {
+        "vscode": {
+            // Set *default* container specific settings.json values on container create. 
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                "GitHub.copilot",
+                "yzhang.markdown-all-in-one",
+                "DavidAnson.vscode-markdownlint",
+                "Semgrep.semgrep",
+                "swellaby.rust-pack",
+                "1YiB.rust-bundle",
+                "dustypomerleau.rust-syntax",
+                "miramac.vscode-exec-node",
+                "SonarSource.sonarlint-vscode",
+                "eamodio.gitlens"
+            ]
+        }
+    },
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.    
+    "forwardPorts": [9000],
+	// Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "rust version",
+	// Comment out to connect as root instead.
+    "remoteUser": "vscode"
+}

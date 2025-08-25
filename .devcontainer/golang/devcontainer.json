@@ -1,0 +1,37 @@
+{
+    "name": "Golang",
+    "image": "mcr.microsoft.com/devcontainers/go:dev-1.24",
+    // "build": {
+    //     "dockerfile": "Dockerfile",
+    //     "context": "..",
+    //     "args": {
+    //         "VARIANT": ""
+    //     }
+    // }
+    "customizations": {
+        "vscode": {
+            // Set *default* container specific settings.json values on container create. 
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash",
+                "go.lintOnSave": "package"
+            },
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                "GitHub.copilot",
+                "yzhang.markdown-all-in-one",
+                "DavidAnson.vscode-markdownlint",
+                "Semgrep.semgrep",
+                "golang.go",
+                "SonarSource.sonarlint-vscode",
+                "eamodio.gitlens"
+            ]
+        }
+    },
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.    
+    "forwardPorts": [9000],
+	// Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "go version",
+	// Comment out to connect as root instead.
+    "remoteUser": "vscode"
+}

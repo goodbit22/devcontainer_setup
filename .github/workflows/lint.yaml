@@ -1,0 +1,43 @@
+name: Lint Pipeline
+
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # JSON lint
+      - name: Lint JSON files
+        run: |
+          npm install -g jsonlint
+          find . -type f -name "*.json" -print0 | xargs -0 -n1 jsonlint -q
+
+      # YAML lint
+      - name: Lint YAML files
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: .yamllint.yml  # optional if you want custom rules
+
+      # PowerShell lint
+      - name: Setup PowerShell
+        uses: PowerShell/PowerShell-For-GitHub-Actions@v1
+      - name: Lint PowerShell files
+        shell: pwsh
+        run: |
+          Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+          $files = Get-ChildItem -Recurse -Include *.ps1,*.psm1
+          foreach ($file in $files) {
+            Invoke-ScriptAnalyzer -Path $file.FullName -Recurse -EnableExit
+          }
+
+      # Bash lint
+      - name: Lint Bash files
+        run: |
+          sudo apt-get update && sudo apt-get install -y shellcheck
+          find . -type f -name "*.sh" -print0 | xargs -0 -n1 shellcheck
