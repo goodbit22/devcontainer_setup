@@ -1,11 +1,47 @@
 version: "3"
 
+vars: 
+  devcontainers: 
+    - ./devcontainer_setup/.devcontainer/bash/devcontainer.json
+    - ./devcontainer_setup/.devcontainer/powershell/devcontainer.json
+    - ./devcontainer_setup/.devcontainer/rust/devcontainer.json
+    - ./devcontainer_setup/.devcontainer/python/devcontainer.json
+    - ./devcontainer_setup/.devcontainer/golang/devcontainer.json
+
 tasks:
 
-  build:
-    desc: 
+  default:
+    desc: Show options
     cmds:
+      - task --list 
+
+  dependencies:
+    desc: 
+    cmds: 
+     - sudo apt install -y npm
+     - npm install -g @devcontainers/cli
+
 
   run: 
     desc: 'Run a command inside devcontainer (use: task run -- <command>)'
     cmds: 
+      - |
+        {{range .devcontainers}} 
+          devcontainer up --workspace-folder  {{.}}
+        {{end}}
+
+  stop: 
+    desc:  Stops devcontainers 
+    cmds: 
+      - |
+        {{range .devcontainers}} 
+          devcontainer stop --workspace-folder  {{.}}
+        {{end}}  
+  
+  clean: 
+    desc: Stop and delete containers
+    cmds: 
+      - |
+        {{range .devcontainers}} 
+          devcontainer clean --workspace-folder  {{.}}
+        {{end}}    

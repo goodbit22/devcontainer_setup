@@ -1,6 +1,6 @@
 {
     "name": "Powershell",
-    "image": "",
+    "image": "mcr.microsoft.com/powershell:latest",
     // "build": {
     //     "dockerfile": "Dockerfile",
     //     "context": "..",
